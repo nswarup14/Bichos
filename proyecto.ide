@@ -8,10 +8,10 @@
     "categoria":"Game", 
     "descripcion":"", 
     "licencia":"GPL3", 
-    "main":"Main.py", 
+    "main":"SugarBichos.py", 
     "mimetypes":"", 
     "nombre":"Bichos", 
-    "path":"/home/flavio/BatovideWorkSpace/Bichos", 
+    "path":"/home/flavio/Descargas/Bichos.activity", 
     "url":"", 
-    "version":"1.0.0"
+    "version":"2.0.0"
 }

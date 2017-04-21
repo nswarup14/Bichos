@@ -5,10 +5,7 @@ import os
 import gobject
 import pygame
 import gtk
-<<<<<<< HEAD
 import platform
-=======
->>>>>>> f2c65b6... v1
 
 from pygame.locals import HWSURFACE
 from BiblioJAM.JAMButton import JAMButton
@@ -18,10 +15,7 @@ from Bicho import Bicho
 RESOLUCION_INICIAL = (800, 600)
 BASE_PATH = os.path.dirname(__file__)
 BASE_PATH = os.path.dirname(BASE_PATH)
-<<<<<<< HEAD
 OLPC = 'olpc' in platform.platform()
-=======
->>>>>>> f2c65b6... v1
 
 gobject.threads_init()
 
@@ -79,12 +73,8 @@ class Intro(gobject.GObject):
 
         try:
             while self.estado:
-<<<<<<< HEAD
                 if not OLPC:
                     self.reloj.tick(35)
-=======
-                self.reloj.tick(35)
->>>>>>> f2c65b6... v1
                 while gtk.events_pending():
                     gtk.main_iteration()
                 if len(self.sprites.sprites()) < 5:
@@ -101,11 +91,7 @@ class Intro(gobject.GObject):
                 self.ventana_real.blit(pygame.transform.scale(
                     self.ventana, self.resolucionreal), (0, 0))
                 pygame.display.update()
-<<<<<<< HEAD
                 #pygame.time.wait(3)
-=======
-                pygame.time.wait(3)
->>>>>>> f2c65b6... v1
         except:
             pass
 

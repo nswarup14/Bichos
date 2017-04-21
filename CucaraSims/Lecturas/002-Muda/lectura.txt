@@ -5,11 +5,7 @@ MUDA DE EXOESQUELETO:
 
 	La cucaracha es un insecto y los
 	insectos son artrópodos.
-<<<<<<< HEAD
 	Por eso, la cucaracha como todo artrópodo,
-=======
-	Por eso, la cucaracha como todo, artrópodo,
->>>>>>> f2c65b6... v1
 	tiene esqueleto externo.
 
 	No son como nosotros que lo tenemos
