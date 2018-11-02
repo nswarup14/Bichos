@@ -109,7 +109,6 @@ class CucaraSims(gobject.GObject):
         pygame.event.clear()
 
     def __stop_timer(self, objeto):
-        #objeto.disconnect_by_func(self.__update_edad)
         try:
             objeto.disconnect_by_func(self.__event_muerte)
         except:
@@ -125,7 +124,6 @@ class CucaraSims(gobject.GObject):
         objeto.morir()
 
     def __connect_signals(self, objeto):
-        #objeto.connect("new-edad", self.__update_edad)
         objeto.connect("muere", self.__event_muerte)
         objeto.connect("muda", self.__event_muda)
         objeto.connect("reproduce", self.__event_repro)
@@ -201,9 +199,6 @@ class CucaraSims(gobject.GObject):
             cucaracha.rect.centery = pos[1]
         map(self.__connect_signals, self.cucas.sprites())
         self.emit("lectura", "ciclo vital")
-
-    #def __update_edad(self, widget, _dict):
-    #    print _dict
 
     def __pausar(self, objeto):
         objeto.timer.new_handle(False)
@@ -292,8 +287,6 @@ class CucaraSims(gobject.GObject):
                 self.muertas.clear(self.ventana, self.escenario)
                 self.cucas.clear(self.ventana, self.escenario)
                 self.mouse.clear(self.ventana, self.escenario)
-                #self.huevos.update()
-                #self.muertas.update()
                 self.cucas.update(self.alimentos.sprites())
                 self.alimentos.update()
                 self.mouse.update()
@@ -306,7 +299,6 @@ class CucaraSims(gobject.GObject):
                 self.ventana_real.blit(pygame.transform.scale(
                     self.ventana, self.resolucionreal), (0, 0))
                 pygame.display.update()
-                #pygame.time.wait(3)
         except:
             pass
 

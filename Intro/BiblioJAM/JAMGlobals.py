@@ -4,17 +4,8 @@
 import pygame
 import gc
 import os
-#import platform
 
 gc.enable()
-
-#if "olpc" in platform.platform():
-#    os.environ['SDL_AUDIODRIVER'] = 'alsa'
-
-#if not pygame.mixer.get_init():
-#    pygame.mixer.pre_init(44100, -16, 2, 2048)
-#    pygame.mixer.init(44100, -16, 2, 2048)
-
 
 DIRECTORIO_BIBLIOJAM = os.path.dirname(__file__)
 
@@ -177,12 +168,6 @@ def get_icon_exit():
     """
     salir = DIRECTORIO_BIBLIOJAM + "/Recursos/Iconos/cerrar.png"
     return salir
-
-
-#def get_icon_stop():
-#	''' Devuelve las imágenes para botones atras, delante, play y salir. '''
-#	stop= DIRECTORIO_BIBLIOJAM + "/Recursos/Iconos/??.png"
-#	return stop
 
 
 def get_icon_ok():
@@ -426,7 +411,6 @@ def get_calendar(mes, anio):
             if int(fecha) != 0:
                 todalasemana.append(fecha)
         toodoelmes.append(todalasemana)
-    #toodoelmes.insert(0, ["%s de %s" % (get_abrevia_mes(mes), anio)])
     toodoelmes.insert(0, "%s de %s" % (get_mes(mes), anio))
     toodoelmes.insert(1, ["lu", "ma", "mie", "jue", "vie", "sa", "do"])
     return toodoelmes
@@ -536,9 +520,6 @@ def get_nube():
     """
     imagen = pygame.image.load(
         DIRECTORIO_BIBLIOJAM + "/Recursos/Nubes/nube1.png")
-    # pygame.transform.scale(
-    # pygame.image.load(
-    #   DIRECTORIO_BIBLIOJAM + "/Recursos/Nubes/001.png"), (125, 125))
     return imagen
 
 
@@ -546,30 +527,8 @@ def get_sound_lluvia():
     """
     Carga y Devuelve el sonido de la lluvia para JAMNubes
     """
-    #pygame.mixer.init()
     return pygame.mixer.Sound(
         DIRECTORIO_BIBLIOJAM + "/Recursos/Sonidos/lluvia.ogg")
-
-
-'''
-def get_libro():
-    Libreta de lectura.
-    return DIRECTORIO_BIBLIOJAM + "/Recursos/Iconos/libreta.png"
-
-    def get_hoja():
-        Devuelve la imagen para una hoja vacía.
-        imagen= pygame.image.load(VG.get_libro())
-        ancho, alto= imagen.get_size()
-        fondo= VG.get_Rectangulo(VG.get_blanco(), (ancho, alto*19))
-
-        x, y= (0,0)
-        for n in range(19):
-            fondo.blit(imagen, (x, y))
-            y+=alto
-        #fondo= pygame.transform.scale(fondo,(296,420))
-        return fondo
-'''
-
 
 def get_hoja(escala):
     """

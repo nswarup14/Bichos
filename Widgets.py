@@ -24,8 +24,6 @@ class Escenario(gtk.DrawingArea):
         self.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("#000000"))
 
         self.set_events(gtk.gdk.EXPOSE |
-            #gtk.gdk.KEY_PRESS | gtk.gdk.KEY_RELEASE |
-            #gtk.gdk.KEY_RELEASE_MASK | gtk.gdk.KEY_PRESS_MASK |
             gtk.gdk.POINTER_MOTION_MASK | gtk.gdk.POINTER_MOTION_HINT_MASK |
             gtk.gdk.BUTTON_MOTION_MASK | gtk.gdk.BUTTON_PRESS_MASK |
             gtk.gdk.BUTTON_RELEASE_MASK | gtk.gdk.LEAVE_NOTIFY_MASK

@@ -4,7 +4,6 @@
 import pygame
 import gc
 
-#from pygame.locals import *
 gc.enable()
 
 import JAMGlobals as VG
@@ -374,13 +373,6 @@ class JAMButton(pygame.sprite.Sprite):
             if not self.borde_label["color"]:
                 self.borde_label["color"] = VG.get_negro()
             if self.tipo == "elipse":
-            # desabilitado por bug
-                #unselect= VG.get_my_surface_whit_elipse_border(
-                #   unselect, self.borde_label[
-                #   "color"], self.borde_label["grosor"])
-                #select= VG.get_my_surface_whit_elipse_border(
-                #   select, self.borde_label[
-                #   "color"], self.borde_label["grosor"])
                 pass
             else:
                 unselect = VG.get_my_surface_whit_border(
@@ -436,13 +428,6 @@ class JAMButton(pygame.sprite.Sprite):
     # ------------------ FIN DE METODOS DE CONSTRUCCION -------------------- #
 
     # ---------- INICIO DE METODOS INTERNOS AUTOMÁTICOS -------------------- #
-    #def play_select(self):
-    #    """
-    #    reproduce un sonido cuando pasas el mouse sobre el botón
-    #    """
-    #    if self.sonido_select:
-    #        self.sonido_select.play()
-
     def update(self):
         """
         responde a los eventos del mouse sobre el sprite.
@@ -468,7 +453,6 @@ class JAMButton(pygame.sprite.Sprite):
             if self.rect.collidepoint(posicion):
                 # Si el mouse está sobre el botón.
                 if self.select == False:
-                    #self.play_select()
                     self.image = self.final_select
                     self.select = True
             else:
@@ -482,194 +466,3 @@ class JAMButton(pygame.sprite.Sprite):
         for event in eventos_republicar:
             # Se republican todos los eventos que este control no debe manejar.
             pygame.event.post(event)
-
-
-'''
-class Ejemplo(object):
-
-    def __init__(self):
-
-        self.ventana = None
-        self.reloj = None
-        self.nivel = "menu_0"
-
-        self.fondo = None
-        self.widgets = None
-
-        self.resolucion = (800, 800)
-
-        self.setup()
-        self.Run()
-
-    def Run(self):
-        self.ventana.blit(self.fondo, (0, 0))
-        self.widgets.draw(self.ventana)
-        pygame.display.update()
-
-        #self.widgets.sprites()[0].set_text(
-        #   tipo="Arial", tamanio=25, color=None, texto="Flavio Danesse")
-        #self.widgets.sprites()[0].set_imagen(origen=VG.URUGUAY, tamanio=None)
-        #self.widgets.sprites()[0].set_colores(
-        #   colorbas=None, colorbor=color, colorcara=None)
-        #self.widgets.sprites()[0].set_tamanios(
-        #   tamanio=tamanio, grosorbor=None, detalle=None, espesor=None)
-        #self.widgets.sprites()[0].set_posicion(punto=(25,25))
-        #self.widgets.sprites()[0].set_borde_label(
-        #   grosor=2, color=VG.get_negro())
-        self.widgets.sprites()[0].connect(
-            callback=self.salir, sonido_select=VG.get_sound_select())
-        contador = 0
-        while self.nivel == "menu_0":
-            self.reloj.tick(35)
-
-            cambios = []
-            self.widgets.clear(self.ventana, self.fondo)
-
-            if contador == 100:
-                # Activa para provocar cambios de texto en JAMButton
-                contador = self.ejemplo_cambia_texto_en_button()
-                # Activa para provocar cambios de imagen en JAMButton
-                contador = self.ejemplo_cambia_imagen_en_button()
-                # Activa para provocar cambios de contenedor en JAMButton
-                contador = self.ejemplo_cambia_colores_en_button()
-                # Activa para provocar cambios de posicion en JAMButton
-                contador = self.ejemplo_cambia_posicion_en_button()
-                # Activa para provocar cambios de tamaño en JAMButton
-                contador = self.ejemplo_cambia_tamanios_en_button()
-
-            self.widgets.update()
-            self.handle_event()
-            pygame.event.clear()
-            cambios.extend(self.widgets.draw(self.ventana))
-            pygame.display.update(cambios)
-            contador += 1
-
-    def ejemplo_cambia_texto_en_button(self):
-        import random
-        cambios = ["tipo", "tamanio", "color", "texto"]
-        modificar = random.choice(cambios)
-        if modificar == "tipo":
-            tipos = ["Arial", "Purisa", "Times New Roman",
-                "Vardana", "Impact", pygame.font.get_default_font()]
-            self.widgets.sprites()[0].set_text(
-                tipo=random.choice(tipos), tamanio=None,
-                color=None, texto=None)
-        if modificar == "tamanio":
-            tamanios = [10, 20, 30, 40, 45]
-            tamanio = random.choice(tamanios)
-            self.widgets.sprites()[0].set_text(
-                tipo=None, tamanio=tamanio, color=None, texto=None)
-        if modificar == "color":
-            colores = [(0, 0, 0, 255), (100, 100, 255, 255),
-                (110, 25, 255, 255), (255, 125, 55, 255)]
-            color = random.choice(colores)
-            self.widgets.sprites()[0].set_text(tipo=None,
-                tamanio=None, color=color, texto=None)
-        if modificar == "texto":
-            textos = ["JAMLabel", "Presiona escape cuando quieras salir",
-                "Modificando Texto en JAMLabel", "CeibalJAM 2011"]
-            texto = random.choice(textos)
-            self.widgets.sprites()[0].set_text(tipo=None, tamanio=None,
-                color=None, texto=texto)
-        return 0
-
-    def ejemplo_cambia_imagen_en_button(self):
-        import random
-        cambios = ["origen", "tamanio"]
-        modificar = random.choice(cambios)
-        if modificar == "tamanio":
-            tamanios = [(10, 20), (30, 200), (250, 100), None]
-            tamanio = random.choice(tamanios)
-            self.widgets.sprites()[0].set_imagen(origen=None, tamanio=tamanio)
-        if modificar == "origen":
-            origenes = [VG.get_jamimagenes()[0], VG.get_jamimagenes()[1], -1]
-            origen = random.choice(origenes)
-            self.widgets.sprites()[0].set_imagen(origen=origen, tamanio=None)
-        return 0
-
-    def ejemplo_cambia_colores_en_button(self):
-        import random
-        cambios = ["colorbas", "colorbor", "colorcara"]
-        modificar = random.choice(cambios)
-
-        colores = [(10, 20, 100, 255), (100, 100, 100, 255),
-            (255, 255, 255, 255), (255, 0, 0, 255)]
-        color = random.choice(colores)
-
-        if modificar == "colorbas":
-            self.widgets.sprites()[0].set_colores(
-                colorbas=color, colorbor=None, colorcara=None)
-        if modificar == "colorbor":
-            self.widgets.sprites()[0].set_colores(
-                colorbas=None, colorbor=color, colorcara=None)
-        if modificar == "colorcara":
-            self.widgets.sprites()[0].set_colores(
-                colorbas=None, colorbor=None, colorcara=color)
-        return 0
-
-    def ejemplo_cambia_tamanios_en_button(self):
-        import random
-        cambios = ["tamanio", "grosorbor", "detalle", "espesor"]
-        modificar = random.choice(cambios)
-
-        #set_tamanios(tamanio=None, grosorbor=None, detalle=None, espesor=None)
-        if modificar == "tamanio":
-            tamanios = [(200, 100), (100, 50), (20, 20),
-                (300, 150), (10, 500), (300, 50), -1]
-            tamanio = random.choice(tamanios)
-            self.widgets.sprites()[0].set_tamanios(
-                tamanio=tamanio, grosorbor=None, detalle=None, espesor=None)
-        if modificar == "grosorbor":
-            tamanios = [1, 5, 8, 10]
-            tamanio = random.choice(tamanios)
-            self.widgets.sprites()[0].set_tamanios(
-                tamanio=None, grosorbor=tamanio, detalle=None, espesor=None)
-        return 0
-
-    def ejemplo_cambia_posicion_en_button(self):
-        import random
-        posiciones = [(0, 0), (25, 25), (25, 100), (25, 150)]
-        posicion = random.choice(posiciones)
-        self.widgets.sprites()[0].set_posicion(punto=posicion)
-        return 0
-
-    def setup(self):
-        pygame.init()
-        pygame.display.set_mode(self.resolucion, 0, 0)
-        pygame.display.set_caption("Ejemplo")
-
-        self.fondo = self.get_Fondo()
-
-        self.widgets = pygame.sprite.OrderedUpdates()
-        self.widgets.add(JAMButton("JAMButton Prueba", None, tipo="elipse"))
-
-        self.ventana = pygame.display.get_surface()
-        self.reloj = pygame.time.Clock()
-
-        pygame.event.set_blocked([
-            JOYAXISMOTION, JOYBALLMOTION, JOYHATMOTION,
-            JOYBUTTONUP, JOYBUTTONDOWN,
-            KEYUP, USEREVENT, QUIT, ACTIVEEVENT])
-        pygame.event.set_allowed([
-            MOUSEMOTION, MOUSEBUTTONUP, MOUSEBUTTONDOWN,
-            KEYDOWN, VIDEORESIZE, VIDEOEXPOSE])
-        pygame.mouse.set_visible(True)
-
-    def get_Fondo(self):
-        superficie = pygame.Surface(self.resolucion, flags=HWSURFACE)
-        superficie.fill(VG.get_negro())
-        return superficie
-
-    def handle_event(self):
-        for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
-                self.salir()
-        pygame.event.clear()
-
-    def salir(self, datos=None):
-        pygame.quit()
-        sys.exit()
-
-if __name__ == "__main__":
-    Ejemplo()
-'''

@@ -29,7 +29,6 @@ class Bichos(gtk.Window):
 
         self.set_title("Bichos")
         self.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("#000000"))
-        #self.set_icon_from_file(os.path.join(BASE, "Iconos", "bichos.svg"))
         self.set_resizable(True)
         self.set_size_request(640, 480)
         self.set_position(gtk.WIN_POS_CENTER)

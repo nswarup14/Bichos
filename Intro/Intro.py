@@ -91,7 +91,6 @@ class Intro(gobject.GObject):
                 self.ventana_real.blit(pygame.transform.scale(
                     self.ventana, self.resolucionreal), (0, 0))
                 pygame.display.update()
-                #pygame.time.wait(3)
         except:
             pass
 
