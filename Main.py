@@ -29,7 +29,6 @@ class Bichos(Gtk.Window):
 
         self.set_title("Bichos")
         self.override_background_color(Gtk.StateType.NORMAL, Gdk.color_parse("#000000"))
-        #self.set_icon_from_file(os.path.join(BASE, "Iconos", "bichos.svg"))
         self.set_resizable(True)
         self.set_size_request(640, 480)
         self.set_position(Gtk.WindowPosition.CENTER)

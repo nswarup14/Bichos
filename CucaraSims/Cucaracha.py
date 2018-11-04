@@ -26,8 +26,6 @@ INDICE_ROTACION = 5
 class Cucaracha(Sprite, GObject.GObject):
 
     __gsignals__ = {
-    #"new-edad": (GObject.SignalFlags.RUN_LAST,
-    #    None, (GObject.TYPE_PYOBJECT, )),
     "muere": (GObject.SignalFlags.RUN_LAST,
         None, (GObject.TYPE_PYOBJECT,
         GObject.TYPE_PYOBJECT)),

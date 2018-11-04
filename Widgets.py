@@ -29,8 +29,6 @@ class Escenario(Gtk.DrawingArea):
         self.override_background_color(Gtk.StateType.NORMAL, color_parser("#000000"))
 
         self.set_events(Gdk.EventType.EXPOSE |
-            #Gdk.KEY_PRESS | Gdk.KEY_RELEASE |
-            #Gdk.EventMask.KEY_RELEASE_MASK | Gdk.EventMask.KEY_PRESS_MASK |
             Gdk.EventMask.POINTER_MOTION_MASK | Gdk.EventMask.POINTER_MOTION_HINT_MASK |
             Gdk.EventMask.BUTTON_MOTION_MASK | Gdk.EventMask.BUTTON_PRESS_MASK |
             Gdk.EventMask.BUTTON_RELEASE_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK
