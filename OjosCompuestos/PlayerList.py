@@ -5,27 +5,34 @@
 #   Flavio Danesse <fdanesse@gmail.com>
 #   Uruguay
 
-import gtk
-import gobject
+from gi.repository import Gtk
+from gi.repository import Gdk
+from gi.repository import GdkPixbuf
+from gi.repository import GObject
+
+def color_parser(color):
+    rgba = Gdk.RGBA()
+    rgba.parse(color)
+    return rgba
 
 
-class PlayerList(gtk.Frame):
+class PlayerList(Gtk.Frame):
 
     __gsignals__ = {
-    "nueva-seleccion": (gobject.SIGNAL_RUN_LAST,
-        gobject.TYPE_NONE, (gobject.TYPE_PYOBJECT, ))}
+    "nueva-seleccion": (GObject.SignalFlags.RUN_LAST,
+        None, (GObject.TYPE_PYOBJECT, ))}
 
     def __init__(self):
 
-        gtk.Frame.__init__(self)
+        GObject.GObject.__init__(self)
 
-        self.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("#ffffff"))
+        self.override_background_color(Gtk.StateType.NORMAL, color_parser("#ffffff"))
 
-        vbox = gtk.VBox()
+        vbox = Gtk.VBox()
         self.lista = Lista()
 
-        scroll = gtk.ScrolledWindow()
-        scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        scroll = Gtk.ScrolledWindow()
+        scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
         scroll.add(self.lista)
 
         vbox.pack_start(scroll, True, True, 0)
@@ -94,20 +101,20 @@ class PlayerList(gtk.Frame):
         return filepaths
 
 
-class Lista(gtk.TreeView):
+class Lista(Gtk.TreeView):
 
     __gsignals__ = {
-    "nueva-seleccion": (gobject.SIGNAL_RUN_LAST,
-        gobject.TYPE_NONE, (gobject.TYPE_PYOBJECT, ))}
+    "nueva-seleccion": (GObject.SignalFlags.RUN_LAST,
+        None, (GObject.TYPE_PYOBJECT, ))}
 
     def __init__(self):
 
-        gtk.TreeView.__init__(self, gtk.ListStore(
-            gtk.gdk.Pixbuf,
-            gobject.TYPE_STRING,
-            gobject.TYPE_STRING))
+        GObject.GObject.__init__(self, model=Gtk.ListStore(
+            GdkPixbuf.Pixbuf,
+            GObject.TYPE_STRING,
+            GObject.TYPE_STRING))
 
-        self.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("#ffffff"))
+        self.override_background_color(Gtk.StateType.NORMAL, color_parser("#ffffff"))
         self.set_property("rules-hint", True)
         self.set_headers_clickable(False)
         self.set_headers_visible(False)
@@ -123,11 +130,10 @@ class Lista(gtk.TreeView):
 
         self.show_all()
 
-    def __selecciones(self, path, column):
+    def __selecciones(self, selection, model, path, is_selected, user_data):
         """
         Cuando se selecciona un item en la lista.
         """
-
         if not self.permitir_select:
             return True
 
@@ -137,7 +143,7 @@ class Lista(gtk.TreeView):
         if self.valor_select != valor:
             self.valor_select = valor
 
-            gobject.timeout_add(3, self.__select,
+            GObject.timeout_add(3, self.__select,
                 self.get_model().get_path(_iter))
 
         return True
@@ -156,25 +162,25 @@ class Lista(gtk.TreeView):
         self.append_column(self.__construir_columa('', 2, False))
 
     def __construir_columa(self, text, index, visible):
-        render = gtk.CellRendererText()
-        render.set_property("background", gtk.gdk.color_parse("#ffffff"))
-        render.set_property("foreground", gtk.gdk.color_parse("#000000"))
+        render = Gtk.CellRendererText()
+        render.set_property("background", "#ffffff")
+        render.set_property("foreground", "#000000")
 
-        columna = gtk.TreeViewColumn(text, render, text=index)
+        columna = Gtk.TreeViewColumn(text, render, text=index)
         columna.set_sort_column_id(index)
         columna.set_property('visible', visible)
         columna.set_property('resizable', False)
-        columna.set_sizing(gtk.TREE_VIEW_COLUMN_AUTOSIZE)
+        columna.set_sizing(Gtk.TreeViewColumnSizing.AUTOSIZE)
         return columna
 
     def __construir_columa_icono(self, text, index, visible):
-        render = gtk.CellRendererPixbuf()
-        render.set_property("cell-background", gtk.gdk.color_parse("#ffffff"))
+        render = Gtk.CellRendererPixbuf()
+        render.set_property("cell-background", "#ffffff")
 
-        columna = gtk.TreeViewColumn(text, render, pixbuf=index)
+        columna = Gtk.TreeViewColumn(text, render, pixbuf=index)
         columna.set_property('visible', visible)
         columna.set_property('resizable', False)
-        columna.set_sizing(gtk.TREE_VIEW_COLUMN_AUTOSIZE)
+        columna.set_sizing(Gtk.TreeViewColumnSizing.AUTOSIZE)
         return columna
 
     def __ejecutar_agregar_elemento(self, elementos):
@@ -185,11 +191,11 @@ class Lista(gtk.TreeView):
             return False
 
         texto, path = elementos[0]
-        pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(path, 140, -1)
+        pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(path, 140, -1)
 
         self.get_model().append([pixbuf, texto, path])
         elementos.remove(elementos[0])
-        gobject.idle_add(self.__ejecutar_agregar_elemento, elementos)
+        GObject.idle_add(self.__ejecutar_agregar_elemento, elementos)
         return False
 
     def limpiar(self):
@@ -206,7 +212,7 @@ class Lista(gtk.TreeView):
         """
         self.get_toplevel().set_sensitive(False)
         self.permitir_select = False
-        gobject.idle_add(self.__ejecutar_agregar_elemento, elementos)
+        GObject.idle_add(self.__ejecutar_agregar_elemento, elementos)
 
     def seleccionar_siguiente(self, widget=None):
         modelo, _iter = self.get_selection().get_selected()
