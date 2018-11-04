@@ -8,10 +8,11 @@
 import os
 import gi
 gi.require_version('Gst', '1.0')
+from gi.repository import GLib
 from gi.repository import GObject
 from gi.repository import Gst
 
-GObject.threads_init()
+GLib.threads_init()
 Gst.init(None)
 
 

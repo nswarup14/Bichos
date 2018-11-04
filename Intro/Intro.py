@@ -3,6 +3,7 @@
 
 import os
 from gi.repository import GObject
+from gi.repository import GLib
 import pygame
 from gi.repository import Gtk
 import platform
@@ -17,7 +18,7 @@ BASE_PATH = os.path.dirname(__file__)
 BASE_PATH = os.path.dirname(BASE_PATH)
 OLPC = 'olpc' in platform.platform()
 
-GObject.threads_init()
+GLib.threads_init()
 
 
 class Intro(GObject.GObject):
@@ -78,7 +79,7 @@ class Intro(GObject.GObject):
                 while Gtk.events_pending():
                     Gtk.main_iteration()
                 if len(self.sprites.sprites()) < 5:
-                    GObject.idle_add(self.sprites.add,
+                    GLib.idle_add(self.sprites.add,
                         Bicho(RESOLUCION_INICIAL[0],
                         RESOLUCION_INICIAL[1]))
                 self.sprites.clear(self.ventana, self.escenario)

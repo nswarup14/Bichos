@@ -8,6 +8,7 @@
 from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
+from gi.repository import GLib
 from gi.repository import GObject
 
 def color_parser(color):
@@ -143,7 +144,7 @@ class Lista(Gtk.TreeView):
         if self.valor_select != valor:
             self.valor_select = valor
 
-            GObject.timeout_add(3, self.__select,
+            GLib.timeout_add(3, self.__select,
                 self.get_model().get_path(_iter))
 
         return True
@@ -195,7 +196,7 @@ class Lista(Gtk.TreeView):
 
         self.get_model().append([pixbuf, texto, path])
         elementos.remove(elementos[0])
-        GObject.idle_add(self.__ejecutar_agregar_elemento, elementos)
+        GLib.idle_add(self.__ejecutar_agregar_elemento, elementos)
         return False
 
     def limpiar(self):
@@ -212,7 +213,7 @@ class Lista(Gtk.TreeView):
         """
         self.get_toplevel().set_sensitive(False)
         self.permitir_select = False
-        GObject.idle_add(self.__ejecutar_agregar_elemento, elementos)
+        GLib.idle_add(self.__ejecutar_agregar_elemento, elementos)
 
     def seleccionar_siguiente(self, widget=None):
         modelo, _iter = self.get_selection().get_selected()

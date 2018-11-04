@@ -8,6 +8,7 @@
 import os
 from gi.repository import Gtk
 from gi.repository import Gdk
+from gi.repository import GLib
 from gi.repository import GObject
 from gi.repository import GdkPixbuf
 import pygame
@@ -140,7 +141,7 @@ class Visor(Gtk.DrawingArea):
             self.player = ImagePlayer(self)
         elif 'video' in tipo or 'application/ogg':
             self.player = JAMediaReproductor(self.get_property('window').get_xid())
-        GObject.idle_add(self.player.load, self.archivo)
+        GLib.idle_add(self.player.load, self.archivo)
 
 
 class Cursor(Sprite):

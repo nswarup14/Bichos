@@ -10,6 +10,7 @@ import sys
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
+from gi.repository import GLib
 from gi.repository import GObject
 from gi.repository import Gdk
 
@@ -164,7 +165,7 @@ class Interfaz(Gtk.Plug):
             self.widgetjuego = Escenario()
             self.widgetjuego.connect("new-size", self.__redraw)
             self.add(self.widgetjuego)
-            GObject.idle_add(self.__run_intro, self.widgetjuego)
+            GLib.idle_add(self.__run_intro, self.widgetjuego)
 
         elif valor == 2:
             self.override_background_color(Gtk.StateType.NORMAL, color_parser("#ffffff"))
@@ -175,7 +176,7 @@ class Interfaz(Gtk.Plug):
             escenario.connect("mouse-enter", self.__mouse_enter)
             self.widgetjuego = CucaraSimsWidget(escenario)
             self.add(self.widgetjuego)
-            GObject.idle_add(self.__run_cucarasims, escenario)
+            GLib.idle_add(self.__run_cucarasims, escenario)
 
         elif valor == 3:
             self.override_background_color(Gtk.StateType.NORMAL, color_parser("#ffffff"))

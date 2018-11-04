@@ -6,6 +6,7 @@
 #   Uruguay
 
 import os
+from gi.repository import GLib
 from gi.repository import GObject
 import pygame
 from gi.repository import Gtk
@@ -27,7 +28,7 @@ BASE_PATH = os.path.dirname(__file__)
 BASE_PATH = os.path.dirname(BASE_PATH)
 OLPC = 'olpc' in platform.platform()
 
-GObject.threads_init()
+GLib.threads_init()
 
 
 class CucaraSims(GObject.GObject):

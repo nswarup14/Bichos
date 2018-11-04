@@ -5,6 +5,7 @@ import os
 from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
+from gi.repository import GLib
 from gi.repository import GObject
 
 from player import Player
@@ -45,7 +46,7 @@ class CantaBichos(Gtk.Table):
         self.show_all()
 
     def __realize(self, widget):
-        GObject.idle_add(self.__dialog_run)
+        GLib.idle_add(self.__dialog_run)
 
     def __dialog_run(self):
         dialog = Dialog(parent=self.get_toplevel(),
@@ -130,13 +131,13 @@ class Button(Gtk.EventBox):
 
     def __size_request(self, widget, event):
         rect = self.get_allocation()
-        GObject.idle_add(self.imagen.set_from_pixbuf,
+        GLib.idle_add(self.imagen.set_from_pixbuf,
             GdkPixbuf.Pixbuf.new_from_file_at_size(
             self.image_path, rect.width, -1))
 
     def __draw_cb(self, widget, event):
         rect = self.get_allocation()
-        GObject.idle_add(self.imagen.set_from_pixbuf,
+        GLib.idle_add(self.imagen.set_from_pixbuf,
             GdkPixbuf.Pixbuf.new_from_file_at_size(
             self.image_path, rect.width, -1))
 
@@ -160,4 +161,4 @@ class Dialog(Gtk.Dialog):
         self.vbox.pack_start(label, True, True, 0)
         self.vbox.show_all()
 
-        GObject.timeout_add(3000, self.destroy)
+        GLib.timeout_add(3000, self.destroy)

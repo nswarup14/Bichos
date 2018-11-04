@@ -6,9 +6,9 @@
 #   Uruguay
 
 from gi.repository import Gst
-from gi.repository import GObject
+from gi.repository import GLib
 
-GObject.threads_init()
+GLib.threads_init()
 
 
 class JAMedia_Audio_Pipeline(Gst.Pipeline):

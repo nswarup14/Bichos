@@ -9,6 +9,7 @@ import os
 from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
+from gi.repository import GLib
 from gi.repository import GObject
 
 from Widgets import Widget_Leccion
@@ -59,7 +60,7 @@ class CucaraSimsWidget(Gtk.HPaned):
         self.cursor_root = False
         self.cursor_tipo = False
 
-        GObject.idle_add(self.__config_cursors)
+        GLib.idle_add(self.__config_cursors)
 
     def __volumen_changed(self, widget, valor):
         self.emit('volumen', valor)

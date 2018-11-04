@@ -6,6 +6,7 @@
 #   Uruguay
 
 import os
+from gi.repository import GLib
 from gi.repository import GObject
 from gi.repository import Gst
 
@@ -14,7 +15,7 @@ from JAMediaBins import JAMedia_Video_Pipeline
 
 PR = False
 
-GObject.threads_init()
+GLib.threads_init()
 
 
 class JAMediaReproductor(GObject.GObject):
@@ -140,11 +141,11 @@ class JAMediaReproductor(GObject.GObject):
 
     def __new_handle(self, reset):
         if self.actualizador:
-            GObject.source_remove(self.actualizador)
+            GLib.source_remove(self.actualizador)
             self.actualizador = False
 
         if reset:
-            self.actualizador = GObject.timeout_add(500, self.__handle)
+            self.actualizador = GLib.timeout_add(500, self.__handle)
 
     def __handle(self):
         if not self.progressbar:
